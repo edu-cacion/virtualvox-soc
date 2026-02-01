@@ -1,4 +1,4 @@
-name: VirtualVox Threat Detection Pipeline
+name: Financial SOC Threat Detection Pipeline
 
 on:
   push:
@@ -7,17 +7,21 @@ on:
   workflow_dispatch:
 
 jobs:
-  detect-threat:
+  financial-threat-detection:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Descargar el repositorio
+    - name: Descargar repositorio
       uses: actions/checkout@v4
 
-    - name: Simular actividad sospechosa
+    - name: Simular modificación no autorizada en sistema financiero
       run: |
-        echo "EICAR-STANDARD-ANTIVIRUS-TEST-FILE" > eicar.txt
+        echo "ALTER TABLE cuentas SET saldo = saldo + 100000;" > financial_change.sql
 
-    - name: Generar evento de seguridad
+    - name: Simular acceso administrativo sospechoso
       run: |
-        logger "VirtualVox SOC: posible actividad maliciosa detectada"
+        logger "FINANCIAL-SOC: acceso administrativo no autorizado detectado"
+
+    - name: Simular indicador de malware
+      run: |
+        echo "EICAR-STANDARD-ANTIVIRUS-TEST-FILE" > malware_test.txt
