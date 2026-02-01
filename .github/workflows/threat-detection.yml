@@ -1,0 +1,23 @@
+name: VirtualVox Threat Detection Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  detect-threat:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Descargar el repositorio
+      uses: actions/checkout@v4
+
+    - name: Simular actividad sospechosa
+      run: |
+        echo "EICAR-STANDARD-ANTIVIRUS-TEST-FILE" > eicar.txt
+
+    - name: Generar evento de seguridad
+      run: |
+        logger "VirtualVox SOC: posible actividad maliciosa detectada"
